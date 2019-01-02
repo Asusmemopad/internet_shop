@@ -17,4 +17,6 @@ public class Goods {
     private String code;
     private String name;
     private Long price;
+
+
 }
