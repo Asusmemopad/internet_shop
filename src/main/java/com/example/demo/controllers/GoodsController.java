@@ -2,6 +2,7 @@ package com.example.demo.controllers;
 
 import com.example.demo.model.Goods;
 import com.example.demo.services.GoodsService;
+import com.example.demo.services.MapValidationErrorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,19 +21,14 @@ public class GoodsController {
     @Autowired
     private GoodsService goodsService;
 
+    @Autowired
+    private MapValidationErrorService mapValidationErrorService;
+
     @PostMapping("")
     public ResponseEntity<?> createNewGoods(@Valid @RequestBody Goods goods, BindingResult result){
 
-        if (result.hasErrors()){
-
-            Map<String, String> errorMap = new HashMap<>();
-
-            for (FieldError error: result.getFieldErrors()){
-                errorMap.put(error.getField(), error.getDefaultMessage());
-            }
-
-            return new ResponseEntity<Map<String, String>>(errorMap, HttpStatus.BAD_REQUEST);
-        }
+        ResponseEntity<?> errorMap = mapValidationErrorService.MapValidationService(result);
+        if (errorMap != null) return errorMap;
 
         goodsService.saveGoods(goods);
         return new ResponseEntity<Goods>(goods, HttpStatus.CREATED);
