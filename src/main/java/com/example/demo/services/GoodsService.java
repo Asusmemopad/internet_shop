@@ -1,5 +1,6 @@
 package com.example.demo.services;
 
+import com.example.demo.exeptions.GoodsIdException;
 import com.example.demo.model.Goods;
 import com.example.demo.repositories.GoodsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,12 @@ public class GoodsService {
     private GoodsRepository goodsRepository;
 
     public Goods saveGoods(Goods goods){
-        return goodsRepository.save(goods);
+        try {
+            goods.setCode(goods.getCode().toUpperCase());
+            return goodsRepository.save(goods);
+        } catch (Exception e){
+            throw new GoodsIdException("Goods Id '" + goods.getCode().toUpperCase() + "' already exists");
+        }
+
     }
 }
