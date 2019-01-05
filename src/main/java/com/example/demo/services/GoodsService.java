@@ -19,6 +19,15 @@ public class GoodsService {
         } catch (Exception e){
             throw new GoodsIdException("Goods Id '" + goods.getCode().toUpperCase() + "' already exists");
         }
+    }
 
+    public Goods findGoodsByCode(String goodsCode){
+        Goods goods = goodsRepository.findByCode(goodsCode.toUpperCase());
+
+        if (goods == null){
+            throw new GoodsIdException("Goods Id does not exists");
+        }
+
+        return goods;
     }
 }

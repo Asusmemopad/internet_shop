@@ -33,4 +33,12 @@ public class GoodsController {
         goodsService.saveGoods(goods);
         return new ResponseEntity<Goods>(goods, HttpStatus.CREATED);
     }
+
+    @GetMapping("/{productCode}")
+    public ResponseEntity<?> getGoodsByCode(@PathVariable String productCode){
+        Goods goods = goodsService.findGoodsByCode(productCode);
+
+        return new ResponseEntity<Goods>(goods, HttpStatus.OK);
+    }
+
 }
