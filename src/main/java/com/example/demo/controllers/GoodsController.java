@@ -34,9 +34,9 @@ public class GoodsController {
         return new ResponseEntity<Goods>(goods, HttpStatus.CREATED);
     }
 
-    @GetMapping("/{productCode}")
-    public ResponseEntity<?> getGoodsByCode(@PathVariable String productCode){
-        Goods goods = goodsService.findGoodsByCode(productCode);
+    @GetMapping("/{goodsCode}")
+    public ResponseEntity<?> getGoodsByCode(@PathVariable String goodsCode){
+        Goods goods = goodsService.findGoodsByCode(goodsCode);
 
         return new ResponseEntity<Goods>(goods, HttpStatus.OK);
     }
@@ -45,4 +45,11 @@ public class GoodsController {
     public Iterable<Goods> getAllGoods(){
         return goodsService.findAllGoods();
     }
+
+    @DeleteMapping("/{goodsCode}")
+    public void deleteGoods(@PathVariable String goodsCode){
+        goodsService.deleteGoodsFromCode(goodsCode);
+    }
+
+    
 }

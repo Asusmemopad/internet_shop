@@ -34,4 +34,14 @@ public class GoodsService {
     public Iterable<Goods> findAllGoods(){
         return goodsRepository.findAll();
     }
+
+    public void deleteGoodsFromCode(String goodsCode){
+        Goods goods = goodsRepository.findByCode(goodsCode.toUpperCase());
+
+        if (goods == null){
+            throw new GoodsIdException("Goods code does not exists");
+        }
+
+        goodsRepository.delete(goods);
+    }
 }
