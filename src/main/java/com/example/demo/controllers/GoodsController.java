@@ -41,4 +41,8 @@ public class GoodsController {
         return new ResponseEntity<Goods>(goods, HttpStatus.OK);
     }
 
+    @GetMapping("")
+    public Iterable<Goods> getAllGoods(){
+        return goodsService.findAllGoods();
+    }
 }

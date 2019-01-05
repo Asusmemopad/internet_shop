@@ -30,4 +30,8 @@ public class GoodsService {
 
         return goods;
     }
+
+    public Iterable<Goods> findAllGoods(){
+        return goodsRepository.findAll();
+    }
 }
